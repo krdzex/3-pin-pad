@@ -29,29 +29,32 @@ const App = () => {
       setDisableButton(true);
       setTimeout(() => {
         setDisableButton(false)
-      }, 300000);
-    }
+      }, 3000);
 
+    }
+    if (tries.no > 3) {
+      tries.no = 1;
+    }
     return false;
   }
-
   const [result, setResult] = useState("");
   const clickHandle = (e) => {
-    if (result === "ERROR") {
-      clear();
-    } else {
-      setResult(result + e.target.value);
+    if (result.length < 4 || result === "ERROR" || result === "LOCKED") {
+      if (result === "ERROR") {
+        clear();
+      } else if (result === "LOCKED") {
+        clear();
+      } else {
+        setResult(result + e.target.value);
+      }
     }
-
   }
+
   const clear = () => {
     setResult("");
     setInput("password");
   }
 
-
-
-  console.log(disableButton)
   return (
     <div className="pin-app-wrapper">
       <div className="result">
