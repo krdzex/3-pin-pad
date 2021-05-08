@@ -29,7 +29,7 @@ const App = () => {
       setDisableButton(true);
       setTimeout(() => {
         setDisableButton(false)
-      }, 3000);
+      }, 30000);
 
     }
     if (tries.no > 3) {
@@ -37,17 +37,21 @@ const App = () => {
     }
     return false;
   }
+
   const [result, setResult] = useState("");
   const clickHandle = (e) => {
     if (result.length < 4 || result === "ERROR" || result === "LOCKED") {
       if (result === "ERROR") {
         clear();
+        setResult("" + e.target.value);
       } else if (result === "LOCKED") {
         clear();
+        setResult("" + e.target.value);
       } else {
         setResult(result + e.target.value);
       }
     }
+
   }
 
   const clear = () => {
@@ -58,7 +62,7 @@ const App = () => {
   return (
     <div className="pin-app-wrapper">
       <div className="result">
-        <input value={result} type={inputType} disabled></input>
+        <input style={result === "ERROR" ? { color: "red" } : result === "OK" ? { color: "green" } : result === "LOCKED" ? { color: "#56cbdb" } : { color: "white" }} value={result} type={inputType} disabled></input>
       </div>
       <div className="buttons">
         <button disabled={disableButton} value="1" onClick={clickHandle}>1</button>
